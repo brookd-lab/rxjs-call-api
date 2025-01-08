@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { fromFetch } from "rxjs/fetch";
 import { switchMap, catchError, of } from "rxjs";
 import newData from "../helpers/Data";
 
 const GetData = (setData) => {
-  useEffect(() => {
+   // [] ensures that the effect only runs once on mount
     fromFetch("http://localhost:5000/api/Authenticate/login", {
       method: "POST",
       headers: {
@@ -30,12 +29,12 @@ const GetData = (setData) => {
           if (response.error) {
             console.log(response.message);
           } else {
+            console.log(response);
             setData(response);
           }
         },
         complete: () => console.log("done"),
       });
-  }, [newData, setData]);
-};
+  }
 
 export default GetData;
